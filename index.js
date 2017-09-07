@@ -1,9 +1,10 @@
 const express = require("express");
+const passport = require("passport");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const app = express();
 
-app.get("/", (req, res) => {
-  res.send({ hi: "Hello :-) " });
-});
+passport.use(new GoogleStrategy());
+
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, console.log('Running on :', PORT));
+app.listen(PORT, console.log("Running on :", PORT));
