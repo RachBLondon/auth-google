@@ -1,6 +1,8 @@
 const passport = require("passport");
 
-module.exports = (app) => {
+module.exports = app => {
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.get(
     "/auth/google",
     passport.authenticate("google", {
@@ -9,4 +11,14 @@ module.exports = (app) => {
   );
 
   app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get("/auth/facebook", passport.authenticate("facebook"));
+
+  app.get(
+    "/auth/facebook/callback",
+    passport.authenticate("facebook", { failureRedirect: "/login" }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect("/");
+    }
+  );
 };
