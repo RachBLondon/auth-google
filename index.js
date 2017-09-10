@@ -20,6 +20,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'static')));
 require("./routes/authRoutes")(app);
 
 hbs.registerPartials(__dirname + '/views/partials/')

@@ -1,0 +1,27 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+ul {   
+    list-style-type:none;  
+    margin:0;  
+    padding:0;  
+    height:30px;  
+    background-color: black;    
+}  
+ul li {  
+    float:left;  
+    height:30px;  
+    line-height:30px;  
+}  
+ul li a {  
+    display:block;  
+    padding:0 20px;  
+    color:#FFF;  
+    text-decoration:none;  
+}  
+ul li a:hover {  
+    background-color: gray;  
+    text-decoration:none;  
+}  
