@@ -1,5 +1,5 @@
 const passport = require("passport");
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const User = mongoose.model("users");
 module.exports = app => {
   app.get("/", (req, res) => {
@@ -12,12 +12,20 @@ module.exports = app => {
       scope: ["profile", "email"]
     })
   );
-  app.get("/auth/google/callback", passport.authenticate("google"));
+  app.get(
+    "/auth/google/callback",
+    passport.authenticate("google"),
+    (req, res) => {
+      res.redirect("/");
+    }
+  );
 
   app.get("/auth/facebook", passport.authenticate("facebook"));
   app.get(
     "/auth/facebook/callback",
-    passport.authenticate("facebook", { failureRedirect: "/login" })
+    passport.authenticate("facebook", (req, res) => {
+      res.redirect("/");
+    })
   );
 
   app.get("/api/logout", (req, res) => {
@@ -31,7 +39,7 @@ module.exports = app => {
         res.render("profile", { id: user.id });
       });
     } else {
-      res.render("profile", {id : "user not found"})
+      res.render("profile", { id: "user not found" });
     }
   });
 };
