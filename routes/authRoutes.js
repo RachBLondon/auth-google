@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const User = mongoose.model("users");
 module.exports = app => {
   app.get("/", (req, res) => {
-    res.render("index", { title: "Example App" });
+    const NotLoggedIn = !req.user
+    res.render("index", { title: "Example App", NotLoggedIn});
   });
 
   app.get(
@@ -23,9 +24,10 @@ module.exports = app => {
   app.get("/auth/facebook", passport.authenticate("facebook"));
   app.get(
     "/auth/facebook/callback",
-    passport.authenticate("facebook", (req, res) => {
+    passport.authenticate("facebook"), 
+    (req, res) => {
       res.redirect("/");
-    })
+    }
   );
 
   app.get("/api/logout", (req, res) => {

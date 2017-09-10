@@ -1,5 +1,7 @@
 {{> menu }}
 <h1> {{title}} </h1>
-<h2>Login in with </h2>
-<a href="/auth/google"><button> Google </button></a>
-<a href="/auth/google"><button> Facebook </button></a>
+{{#if NotLoggedIn}}
+    <h2>Login in with </h2>
+        <a href="/auth/google"><button> Google </button></a>
+        <a href="/auth/facebook"><button> Facebook </button></a>
+{{/if}}
