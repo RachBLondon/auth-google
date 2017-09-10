@@ -1,5 +1,6 @@
 const passport = require("passport");
-
+const mongoose = require('mongoose')
+const User = mongoose.model("users");
 module.exports = app => {
   app.get("/", (req, res) => {
     res.render("index", { title: "Example App" });
@@ -21,11 +22,16 @@ module.exports = app => {
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.send(req.user);
+    res.render("logout");
   });
 
   app.get("/api/current_user", (req, res) => {
-    const id = req.user ? req.user.id : "Not logged in"
-    res.render("profile", { id: id});
+    if (req.user) {
+      User.findById(req.user.id).then(user => {
+        res.render("profile", { id: user.id });
+      });
+    } else {
+      res.render("profile", {id : "user not found"})
+    }
   });
 };
