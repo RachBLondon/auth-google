@@ -54,6 +54,7 @@ passport.use(
         } else {
           new User({ facebookID: profile.id }).save().then(user => {
             done(null, user);
+ter
           });
         }
       });
