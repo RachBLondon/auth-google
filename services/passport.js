@@ -24,6 +24,7 @@ passport.use(
       callbackURL: "/auth/google/callback"
     },
     (accessToken, refreshToken, profile, done) => {
+      console.log("Gprofile", profile)
       User.findOne({ googleID: profile.id }).then(existingUser => {
         if (existingUser) {
           //dont need to create a new record
@@ -46,7 +47,7 @@ passport.use(
       callbackURL: "http://localhost:5000/auth/facebook/callback"
     },
     function(accessToken, refreshToken, profile, done) {
-      
+      console.log("fbProfile", profile)
       User.findOne({ facebookID: profile.id }).then(existingUser => {
         if (existingUser) {
           //dont need to create a new record

@@ -2,7 +2,7 @@ const passport = require("passport");
 
 module.exports = app => {
   app.get("/", (req, res) => {
-    res.render('index', { title: 'Example App' });
+    res.render("index", { title: "Example App" });
   });
 
   app.get(
@@ -25,6 +25,7 @@ module.exports = app => {
   });
 
   app.get("/api/current_user", (req, res) => {
-    res.render('profile', {id : req.user.id})
+    const id = req.user ? req.user.id : "Not logged in"
+    res.render("profile", { id: id});
   });
 };
