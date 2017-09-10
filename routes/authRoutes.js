@@ -2,7 +2,7 @@ const passport = require("passport");
 
 module.exports = app => {
   app.get("/", (req, res) => {
-    res.send("hello");
+    res.render('index', { title: 'Example App' });
   });
 
   app.get(
