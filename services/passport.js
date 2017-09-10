@@ -45,10 +45,18 @@ passport.use(
       clientSecret: keys.facebookClientSecret,
       callbackURL: "http://localhost:5000/auth/facebook/callback"
     },
-    function(accessToken, refreshToken, profile, cb) {
-        console.log("profile :", profile)
-        return cb(null, profile);
-   
+    function(accessToken, refreshToken, profile, done) {
+      
+      User.findOne({ facebookID: profile.id }).then(existingUser => {
+        if (existingUser) {
+          //dont need to create a new record
+          done(null, existingUser);
+        } else {
+          new User({ facebookID: profile.id }).save().then(user => {
+            done(null, user);
+          });
+        }
+      });
     }
   )
 );
